@@ -1,9 +1,10 @@
 # from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import CreateView, DeleteView, UpdateView
 from calc_app.models import Calculation
 from calc_app.forms import CalcForm
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
 from calc_app.utils import do_math
 
 
@@ -13,8 +14,6 @@ from calc_app.utils import do_math
 class IndexView(CreateView):
     template_name = 'index.html'
     form_class = CalcForm
-    # model = Calculation
-    # fields = ('num1', 'operator', 'num2')
     success_url = reverse_lazy('index_view')
 
     def form_valid(self, form):
@@ -25,9 +24,6 @@ class IndexView(CreateView):
         calc_form.result = do_math(self.num1, self.operator, self.num2)
         if self.request.user.is_authenticated:
             calc_form.user = self.request.user
-        else:
-            self.request.session['calc_session'] = {'num1': self.num1, 'operator': self.operator, 'num2': self.num2, 'result': calc_form.result}
-            self.request.session.set_expiry(600)  # Data removed from DB after 10 min, (600 sec)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -37,5 +33,16 @@ class IndexView(CreateView):
         else:
             context['calc_hist'] = Calculation.objects.filter(user=None)
             context['login_form'] = AuthenticationForm()
-
+            context['user_creation_form'] = UserCreationForm()
         return context
+
+
+class SignUpView(CreateView):
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy('index_view')
+
+
+class CalcDeleteView(DeleteView):
+    model = Calculation
+    success_url = reverse_lazy('index_view')

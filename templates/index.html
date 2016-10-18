@@ -1,7 +1,59 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load widget_tweaks %}
 
 {% block body %}
+    <div class="row jumbotron">
+        {# login form #}
+        <div class="col-md-4">
+            {% if request.user.is_authenticated %}
+                <h3 class="text-center">Welcome {{ request.user }}</h3>
+            {% else %}
+            <form class="" action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {{ login_form|crispy }}
+                <input class="btn btn-default" type="submit" name="login" value="Login">
+            </form>
+            {% endif %}
+        </div>
+        {# Why you should signup #}
+        <div class="col-md-8">
+            {% if not request.user.is_authenticated %}
+                <h2>Sign Up for an account to get all the benfits of this great calulator</h2>
+                <p>Create an account to save your personal Calculation history.</p>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#SignUpModal">
+                  Sign Up Now
+                </button>
+
+                <!-- Sign up Modal -->
+                <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Create a User Account</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form class="" action="{% url 'sign_up_view' %}" method="post">
+                            {% csrf_token %}
+                            {{ user_creation_form.as_p }}
+                      </div>
+                      <div class="modal-footer">
+                          <input class="btn btn-primary pull-right" type="submit" name="signup" value="Sign Up">
+                      </form> {# end signup form #}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Modal -->
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
 
     <div class="row">
         <div class="col-md-6">
@@ -18,12 +70,9 @@
 
                     <div class="fieldWrapper " data-toggle="buttons">
                         {{ form.operator.errors }}
-                        {# <label for="{{ form.operator.id_for_label }}"></label>#}
                         {% for field in form.operator  %}
                             <span class="btn btn-primary operators text-center">{{ field }}</span>
                         {% endfor %}
-                        {# <label class="btn btn-primary active">{{ form.operator }}</label>#}
-                        {# {{ form.operator }}#}
                     </div>
 
                     <div class="fieldWrapper">
@@ -31,41 +80,30 @@
                         <label for="{{ form.num2.id_for_label }}"></label>
                         {{ form.num2 }}
                     </div>
-                    <input type="submit" name="submit" value="Calculate">
-                </form>
+                    <input class="btn btn-default" type="submit" name="submit" value="Calculate">
+                </form> {# end calc form #}
             </div>
         </div>
 
         <div class="col-md-6">
-            {% if request.user.is_authenticated %}
-            <h2>Your Calculation History</h2>
-            {% else %}
-            <form class="" action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                {{ login_form|crispy }}
-                <input type="submit" name="login" value="Login">
-            </form>
-            Create an account to save your Calculation history.
-            {% endif %}
-
-            <ul>
-
-            {% if request.session %}
-            {{ request.session.calc_session }}
-            {% else %}
+            <h2>Your Calculation History</h2><br>
+            <table>
                 {% for calc in calc_hist %}
-                    <li>{{ calc.num1 }} {{ calc.operator }} {{ calc.num2 }} = <strong>{{ calc.result }}</strong></li>
-                    <em>{{ calc.get_result }}</em>
+                <tr>
+                    <td>{{ calc.num1 }} {{ calc.operator }} {{ calc.num2 }} = <strong>{{ calc.get_result }}</strong></td>
+                    {% if request.user.is_authenticated %}
+                    <td>
+                        <form class="" action="{% url 'calc_delete_view' calc.id %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-danger delete" type="submit" name="name" value="X">
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
                 {% endfor %}
-            {% endif %}
-
-            {# {% if calc_session %}#}
-            {# {% for calc in calc_session %}#}
-            {# <li>{{ calc.num1 }} {{ calc.operator }} {{ calc.num2 }} = <strong>{{ calc.result }}</strong></li>#}
-            {# {% endfor %}#}
-            {# {% endif %}#}
-            </ul>
+            </table>
         </div>
+
     </div>
 
 

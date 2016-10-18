@@ -9,10 +9,7 @@ class Calculation(models.Model):
     operator_choices = (('+', '+'), ('-', '-'), ('/', '/'), ('X', 'X'))
     operator = models.CharField(max_length=1, choices=operator_choices)
     num2 = models.FloatField()
-    result = models.FloatField(null=True, blank=False)
-
-    def __str__(self):
-        return "{} {} {} = {}".format(self.num1, self.operator, self.num2, self.result)
+    # result = models.FloatField(null=True, blank=False)
 
     class Meta:
         ordering = ['-id']
@@ -20,3 +17,6 @@ class Calculation(models.Model):
     @property
     def get_result(self):
         return do_math(self.num1, self.operator, self.num2)
+
+    def __str__(self):
+        return "{} {} {} = {}".format(self.num1, self.operator, self.num2, self.get_result)

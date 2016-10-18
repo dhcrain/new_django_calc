@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from calc_app.views import IndexView
+from calc_app.views import IndexView, SignUpView, CalcDeleteView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^$', IndexView.as_view(), name='index_view'),
+    url(r'^signup/$', SignUpView.as_view(), name='sign_up_view'),
+    url(r'^delete/(?P<pk>\d+)$', CalcDeleteView.as_view(), name='calc_delete_view'),
 ]
