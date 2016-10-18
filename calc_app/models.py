@@ -1,5 +1,5 @@
 from django.db import models
-
+from calc_app.utils import do_math
 # Create your models here.
 
 
@@ -12,4 +12,11 @@ class Calculation(models.Model):
     result = models.FloatField(null=True, blank=False)
 
     def __str__(self):
-        return str(self.result)
+        return "{} {} {} = {}".format(self.num1, self.operator, self.num2, self.result)
+
+    class Meta:
+        ordering = ['-id']
+
+    @property
+    def get_result(self):
+        return do_math(self.num1, self.operator, self.num2)
