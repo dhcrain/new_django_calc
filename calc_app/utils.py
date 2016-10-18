@@ -18,7 +18,7 @@ def multiply(a, b):
 
 def do_math(num1, operator, num2):
     if num2 == 0:
-        return NaN
+        return "Can't Divided By Zero"
     else:
         option = {'+': add, '-': subtract, '/': divide, 'X': multiply}
         return option[operator](num1, num2)

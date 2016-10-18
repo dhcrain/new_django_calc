@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
-{% load widget_tweaks %}
 
 {% block body %}
+    <br>
     <div class="row jumbotron">
         {# login form #}
         <div class="col-md-4">
@@ -20,7 +20,8 @@
         <div class="col-md-8">
             {% if not request.user.is_authenticated %}
                 <h2>Sign Up for an account to get all the benfits of this great calulator</h2>
-                <p>Create an account to save your personal Calculation history.</p>
+                <p>Create an account to save your personal Calculation history.<br>
+                    <small>Get more than 5 results</small></p>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#SignUpModal">
                   Sign Up Now
@@ -48,12 +49,12 @@
                     </div>
                   </div>
                 </div>
-                <!-- End Modal -->
+                <!-- End Sign up Modal -->
+            {% else %}
+                <a class="pull-right" href="{% url 'logout' %}?next={% url 'index_view' %}">Logout</a>
             {% endif %}
         </div>
     </div>
-
-    <hr>
 
     <div class="row">
         <div class="col-md-6">

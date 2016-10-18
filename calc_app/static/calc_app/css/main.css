@@ -1,7 +1,4 @@
-body {
-    background-color: #F2F2F2;
-    padding-top: 70px;
-}
+
 /* Hide the '------' option in the selection */
 span.btn.btn-primary.operators:first-child {
     display: none;
@@ -10,9 +7,6 @@ span.btn.btn-primary.operators {
     width: 50px;
     margin: 25px 5px 25px 5px;
 
-}
-.calc-img {
-    margin-top: -15px;
 }
 .btn {
     margin-top: 5px;

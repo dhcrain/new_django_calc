@@ -1,6 +1,5 @@
 from django.db import models
 from calc_app.utils import do_math
-# Create your models here.
 
 
 class Calculation(models.Model):
@@ -9,7 +8,6 @@ class Calculation(models.Model):
     operator_choices = (('+', '+'), ('-', '-'), ('/', '/'), ('X', 'X'))
     operator = models.CharField(max_length=1, choices=operator_choices)
     num2 = models.FloatField()
-    # result = models.FloatField(null=True, blank=False)
 
     class Meta:
         ordering = ['-id']
