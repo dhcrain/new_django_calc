@@ -1,8 +1,11 @@
 # New Django Calculator
 
 
+[View Live](https://django-calc-dhcrain.herokuapp.com/ "Django Calculator")
+
+
 ## To use:
-1. Recommended set up Python 3 virtual environment.  
+1. Set up Python 3 virtual environment.  
 2. `git clone https://github.com/dhcrain/new_django_calc.git`  
 3. `cd new_django_calc`  
 4. `pip install -r requirements.txt`  
