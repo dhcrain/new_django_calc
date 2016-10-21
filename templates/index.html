@@ -33,6 +33,7 @@
             {% endif %}
         </div>
     </div>
+    {# end jumbotron #}
     <!-- Sign up Modal -->
     <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
@@ -50,12 +51,15 @@
           </div>
           <div class="modal-footer">
               <input class="btn btn-primary pull-right" type="submit" name="signup" value="Sign Up">
-          </form> {# end signup form #}
+          </form>
+          {# end signup form #}
           </div>
         </div>
       </div>
     </div>
     <!-- End Sign up Modal -->
+
+    {# start calc #}
     <div class="row">
         <div class="col-md-6">
             <div class="text-center">
@@ -82,7 +86,8 @@
                         {{ form.num2 }}
                     </div>
                     <input class="btn btn-default" type="submit" name="submit" value="Calculate">
-                </form> {# end calc form #}
+                </form>
+                {# end calc form #}
             </div>
         </div>
 
@@ -104,7 +109,6 @@
                 {% endfor %}
             </table>
         </div>
-
     </div>
 
 
