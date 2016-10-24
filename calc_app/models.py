@@ -22,7 +22,7 @@ class Calculation(models.Model):
 
     @property
     def get_num2(self):
-        return int_or_float(self.num1)
+        return int_or_float(self.num2)
 
     def __str__(self):
         return "{} {} {} = {}".format(self.num1, self.operator, self.num2, self.get_result)
