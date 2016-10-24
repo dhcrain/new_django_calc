@@ -31,7 +31,7 @@ class IndexView(CreateView):
 class SignUpView(CreateView):
     model = User
     form_class = UserCreationForm
-    success_url = reverse_lazy('index_view')
+    success_url = reverse_lazy('login')
 
 
 class CalcDeleteView(DeleteView):
