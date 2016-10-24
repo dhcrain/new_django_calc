@@ -96,7 +96,7 @@
             <table>
                 {% for calc in calc_hist %}
                 <tr>
-                    <td>{{ calc.get_num1 }} {{ calc.operator }} {{ calc.get_num2 }} = <strong>{{ calc.get_result }}</strong></td>
+                    <td class="result">{{ calc.get_num1 }} {{ calc.operator }} {{ calc.get_num2 }} = <strong>{{ calc.get_result }}</strong></td>
                     {% if request.user.is_authenticated %}
                     <td>
                         <form class="" action="{% url 'calc_delete_view' calc.id %}" method="post">

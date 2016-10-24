@@ -1,5 +1,5 @@
 from django.db import models
-from calc_app.utils import do_math
+from calc_app.utils import do_math, int_or_float
 
 
 class Calculation(models.Model):
@@ -18,15 +18,11 @@ class Calculation(models.Model):
 
     @property
     def get_num1(self):
-        if self.num1 == int(self.num1):
-            self.num1 = int(self.num1)
-        return self.num1
+        return int_or_float(self.num1)
 
     @property
     def get_num2(self):
-        if self.num2 == int(self.num2):
-            self.num2 = int(self.num2)
-        return self.num2
+        return int_or_float(self.num1)
 
     def __str__(self):
         return "{} {} {} = {}".format(self.num1, self.operator, self.num2, self.get_result)

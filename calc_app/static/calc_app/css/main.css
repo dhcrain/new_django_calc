@@ -11,3 +11,6 @@ span.btn.btn-primary.operators {
 .btn {
     margin-top: 5px;
 }
+td.result {
+    width: 20em;
+}
